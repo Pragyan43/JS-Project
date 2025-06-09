@@ -41,7 +41,7 @@
 </head>
 <body>
     <h2 style = "text-align:center;">BOOK APPOINTMENT</h2>
-    <form action "/submitAppointment" method = post>
+    <form onsubmit = "return handleAppointment()">
         <div> 
             <label for="doctor">Select Doctor: 
                 <select id = "doctor" name = "doctor" required>
@@ -64,7 +64,27 @@
             <input id="time" type="time" required>
         </div>
 
-        <button = "Submit">Book Appointment</button>
+        <button type = "Submit">Book Appointment</button>
     </form>
+    <script>
+      function handleAppointment(){
+        const doctor = document.getElementById("doctor").value;
+        const date = document.getElementById("date").value;
+        const time = document.getElementById("time").value;
+
+        const appointment = {
+          doctor: document.getElementById("doctor").value,
+          date: document.getElementById("date").value,
+          time: document.getElementById("time").value
+        };
+
+        let appointments = JSON.parse(localStorage.getItem("appointments")) || [];
+        appointments.push(appointment);
+        localStorage.setItem("appointments", JSON.stringify(appointments));
+
+        window.location.href = "view.html";
+        return false;
+      }
+    </script>
 </body>
 </html>
